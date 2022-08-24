@@ -41,6 +41,11 @@ function suruchi_setup()
 		*/
     add_theme_support('title-tag');
 
+    // home category laoyout image
+    add_image_size('vetical', 509, 565, true);
+    add_image_size('horizontal', 775, 265, true);
+    add_image_size('normal', 348, 276, true);
+
     /*
 		* Enable support for Post Thumbnails on posts and pages.
 		*

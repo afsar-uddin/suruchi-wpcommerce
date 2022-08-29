@@ -20,32 +20,18 @@ add_action('wp_ajax_filter', 'filter_ajax');
 function filter_ajax()
 {
 
+    $post_items = [
+        'post_type' => 'post',
+        'posts_per_page' => -1
+    ];
+
     $category = $_POST['category'];
 
-    if ($category) {
-        $post_items = [
-            'post_type' => 'product',
-            'posts_per_page' => -1,
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'product_cat',
-                    'field'    => 'term_id',
-                    'terms'    => array($category),
-                ),
-            ),
-        ];
-    } else {
-        $post_items = [
-            'post_type' => 'product',
-            'posts_per_page' => -1,
-        ];
+    if (isset($category)) {
+        $post_items['category__in'] = array($category);
     }
 
-
-
-
     $cat_post = new WP_Query($post_items);
-
 
     if ($cat_post->have_posts()) : while ($cat_post->have_posts()) : $cat_post->the_post();
 ?>
